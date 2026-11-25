@@ -36,10 +36,31 @@ See [requirements and wiring](docs/requirements_and_wiring.md) before connecting
 
 The revised sketch retains the original pins and pulse threshold of 550. It uses asynchronous temperature conversion and elapsed-time reporting rather than the original fixed one-second delay, checks disconnected/invalid temperature values, removes the arbitrary 60–70 BPM classification, and reports raw accelerometer ADC counts and nominal voltages. The pulse library interrupt configuration precedes its include. See [sensor processing](docs/sensor_processing.md).
 
-## Validation status
+## Software Validation Results
 
-The revised firmware has not yet been compiled or hardware-tested. The original code and project documents are historical artifacts, not evidence of successful operation of this revision. Record actual tool versions, compilation output and bench results before marking checks passed.
+The revised firmware was successfully compiled using Arduino IDE targeting Arduino UNO (ATmega328P).
 
+### Compilation and Memory Utilization
+
+| Parameter | Used | Maximum | Utilization |
+|---|---:|---:|---:|
+| Program storage | 9,856 bytes | 32,256 bytes | 30.6% |
+| Static RAM | 292 bytes | 2,048 bytes | 14.3% |
+
+Remaining resources:
+
+- Program storage: 22,400 bytes
+- Dynamic memory before runtime allocations: 1,756 bytes
+
+![Arduino UNO Compilation Results](images/arduino_uno_compilation_results.png)
+
+### Engineering Analysis
+
+The firmware compiles successfully with the required sensor libraries and remains within the Arduino UNO memory constraints.
+
+The available memory headroom supports potential future improvements, including sensor calibration, filtering and additional signal-processing algorithms.
+
+Physical sensor operation, measurement accuracy, runtime timing and hardware integration have not yet been validated for this firmware revision.
 ## Scope
 
 Temperature is the sensor reading, not a validated core body temperature. BPM estimates depend on signal quality; absence of a new beat estimate is not a medical finding. Accelerometer output is uncalibrated; no fall classification, wireless telemetry, medical diagnosis, battery-life measurement or clinical accuracy is claimed. Do not rely on this prototype for health or safety decisions.
